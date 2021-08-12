@@ -1,0 +1,22 @@
+#!/bin/bash
+# TODO: Catch errors, e.g. file not found.
+
+usage() {
+  echo "USAGE: verify-slsa <provenance-file> <artifact>"
+}
+
+if [[ $# != 2 ]]; then
+  usage >&2
+  exit 1
+fi
+
+PROV_FILE="$1"
+ARTIFACT="$2"
+
+sha256=$(sha256sum "$ARTIFACT" | cut -f1 -d' ')
+
+input_json() {
+}
+
+DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+opa eval -f pretty -i input.json -d "${DIR}/../lib" data.policy

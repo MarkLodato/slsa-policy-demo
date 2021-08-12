@@ -1,0 +1,2 @@
+#!/bin/bash
+opa eval -f pretty -i examples/slsa_1.yaml -d lib 'data.main'

@@ -1,0 +1,36 @@
+policy_params:
+  recognized_builders:
+    - attester: GitHubActions
+      builder_id: https://github.com/Attestations/GitHubHostedActions@v1
+      max_slsa_level: 3
+    - attester: GoogleCloudBuild
+      builder_id: https://cloudbuild.googleapis.com/builder/v1
+      max_slsa_level: 2
+  expected_slsa_level: 3
+  allowed_source_repos:
+    - git+https://github.com/example/example
+artifact:
+  sha256: aaaaaaaa
+verified_attestations:
+  - attester: GitHubActions
+    statement:
+      _type: https://in-toto.io/Statement/v0.1
+      subject:
+        name: _
+        digest:
+          sha256: aaaaaaaa
+      predicateType: https://slsa.dev/provenance/v0.1
+      predicate:
+        builder:
+          id: https://github.com/Attestations/GitHubHostedActions@v1
+        recipe:
+          type: https://github.com/Attestations/GitHubActionsWorkflow@v1
+          definedInMaterial: 1
+          entryPoint: build.yaml:maketgz
+          materials:
+            - uri: git+https://github.com/example/other
+              digest:
+                sha1: bbbbbbbb
+            - uri: git+https://github.com/example/example
+              digest:
+                sha1: cccccccc
