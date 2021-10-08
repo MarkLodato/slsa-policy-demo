@@ -1,3 +1,12 @@
+# The policy for this particular piece of software, expressed as parameters to
+# the policy template.
+instance_params:
+  expected_slsa_level: 3
+  allowed_source_repos:
+    - git+https://github.com/example/example
+
+# Global configuration of this policy, containing things that are true across
+# all policy instances.
 global_params:
   recognized_builders:
     - attester: GitHubActions
@@ -6,12 +15,12 @@ global_params:
     - attester: GoogleCloudBuild
       builder_id: https://cloudbuild.googleapis.com/builder/v1
       max_slsa_level: 2
-instance_params:
-  expected_slsa_level: 3
-  allowed_source_repos:
-    - git+https://github.com/example/example
+
+# The artifact to be verified.
 artifact:
   sha256: aaaaaaaa
+
+# The list of attestations relevant to this artifact.
 verified_attestations:
   - attester: GitHubActions
     statement:
