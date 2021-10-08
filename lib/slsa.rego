@@ -3,15 +3,15 @@
 
 package policy
 
-allow(policy_params, attester, predicateType, predicate, subject_name) {
+allow(global_params, instance_params, attester, predicateType, predicate, subject_name) {
   predicateType ==  "https://slsa.dev/provenance/v0.1"
   provenance := predicate
 
-  level := compute_level(policy_params.recognized_builders, attester, provenance)
-  level >= policy_params.expected_slsa_level
+  level := compute_level(global_params.recognized_builders, attester, provenance)
+  level >= instance_params.expected_slsa_level
 
   source := provenance.materials[provenance.recipe.definedInMaterial]
-  source.uri == policy_params.allowed_source_repos[_]
+  source.uri == instance_params.allowed_source_repos[_]
 }
 
 # Returns the actual level of the artifact.

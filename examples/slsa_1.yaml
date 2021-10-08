@@ -1,4 +1,4 @@
-policy_params:
+global_params:
   recognized_builders:
     - attester: GitHubActions
       builder_id: https://github.com/Attestations/GitHubHostedActions@v1
@@ -6,6 +6,7 @@ policy_params:
     - attester: GoogleCloudBuild
       builder_id: https://cloudbuild.googleapis.com/builder/v1
       max_slsa_level: 2
+instance_params:
   expected_slsa_level: 3
   allowed_source_repos:
     - git+https://github.com/example/example

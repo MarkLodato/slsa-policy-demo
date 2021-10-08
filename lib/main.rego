@@ -14,15 +14,18 @@ default allow = false
 #     Collection of attestations whose signatures have been verified.
 # - input.artifact: DigestSet
 #     Artifact to be verified. Caller must only set acceptable hash algorithms.
-# - input.policy_params: object
-#     Parameters to pass to the policy.
+# - input.global_params: object
+#     Parameters to pass to the policy, configured globally.
+# - input.instance_params: object
+#     Parameters to pass to the policy, configured for this policy instance.
 allow {
   attestation := input.verified_attestations[_]
   attestation._type == "https://in-toto.io/Statement/v0.1"
   subject_name := subject.match(attestation.statement.subject,
                                 input.artifact)
   attester := attestation.attester;
-  policy.allow(input.policy_params,
+  policy.allow(input.global_params,
+               input.instance_params,
                attester, 
                attestation.statement.predicateType,
                attestation.statement.predicate,
